@@ -105,6 +105,7 @@ body {
 .source {
   font-size: 9pt;
   font-style: italic;
+  text-align: justify;
   color: gray;
 }
 a.source:visited {
