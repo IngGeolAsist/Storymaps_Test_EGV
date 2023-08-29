@@ -34,6 +34,21 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/style-desktop.css">
   <link rel="stylesheet" href="css/loader.css">
+
+    <!-- Código EGV-->
+  <meta charset="utf-8">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+  integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+  crossorigin=""/>
+	<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+  integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+  crossorigin=""></script>
+	<script type="text/javascript" src="unidades_DurangoMazatlan_2023_05_04.js"></script>
+	<script type="text/javascript" src="fallas_DurangoMazatlan_2023_04_26.js"></script>
+	<script type="text/javascript" src="trayectos.js"></script>
+	<script type="text/javascript" src="logo_rojo.png"></script>
+	<script type="text/javascript" src="logo_verde.png"></script>
+  
 </head>
 
 <body>
@@ -61,6 +76,47 @@
       zoomControl: false,
       tap: false
     });
+
+//Geología
+	 	var litologias = L.geoJson(unidades_DurangoMazatlan_2023_05_04, {
+		style:function(feature){
+		switch (feature.properties.inciso){
+			case 'cp': return {color:'#e6e7e8', "weight": 0, fillOpacity: .5};
+			case 'lpb': return {color:'#8cd1d5', "weight": 0, fillOpacity: .5};			
+			case 'b': return {color:'#8384f2', "weight": 0, fillOpacity: .5};
+			case 'gcf': return {color:'#f2f2aa', "weight": 0, fillOpacity: .5};
+			case 'e': return {color:'#a475ab', "weight": 0, fillOpacity: .5};
+			case 'omd': return {color:'#fccf76', "weight": 0, fillOpacity: .5};
+			case 'omir': return {color:'#f381a0', "weight": 0, fillOpacity: .5};
+			case 'eoi': return {color:'#919191', "weight": 0, fillOpacity: .5};
+			case 'evr': return {color:'#81c498', "weight": 0, fillOpacity: .5};
+			case 'eir': return {color:'#f47171', "weight": 0, fillOpacity: .5};
+			case 'lv': return {color:'#d6fdc2', "weight": 0, fillOpacity: .5};
+			case 'lir': return {color:'#935d5d', "weight": 0, fillOpacity: .5};
+			case 'plb': return {color:'#c0b09c', "weight": 0, fillOpacity: .5};
+			case 'lmb': return {color:'#91c8f3', "weight": 0, fillOpacity: .5};
+		}
+		},
+		onEachFeature: function( feature, layer ){
+      		layer.bindPopup( "<strong>" + "Unit:" + "</strong><br/>"+ feature.properties.Unidad)
+   		}
+		}).addTo(map);
+		
+
+	 	//Fallas
+	 	var fallas = L.geoJson(fallas_DurangoMazatlan_2023_04_26, {
+		style:function(feature){
+		switch (feature.properties.inciso){
+			case 1: return {color:'red',weight: 0.3}
+ 			case 2: return {color:'red',weight: 0.8}
+			case 3: return {color:'red',weight: 0.3}
+		}
+		},
+		onEachFeature: function( feature, layer ){
+      		layer.bindPopup(feature.properties.tipo)
+   		}
+		}).addTo(map);
+    
   </script>
 
   <script type="text/javascript" src="google-doc-url.js"></script>
